@@ -1,0 +1,29 @@
+{
+  "synthetic": true,
+  "not_signed_stripe_payloads": true,
+  "events": [
+    {
+      "id": "evt_TEST_A",
+      "type": "invoice.finalized",
+      "account_context": "acct_TEST_SELLER",
+      "invoice_id": "in_TEST_EXAMPLE_0001"
+    },
+    {
+      "id": "evt_TEST_A",
+      "type": "invoice.finalized",
+      "account_context": "acct_TEST_SELLER",
+      "invoice_id": "in_TEST_EXAMPLE_0001"
+    },
+    {
+      "id": "evt_TEST_B",
+      "type": "invoice.finalized",
+      "account_context": "acct_TEST_SELLER",
+      "invoice_id": "in_TEST_EXAMPLE_0001"
+    }
+  ],
+  "expected": {
+    "stored_invoice_documents": 1,
+    "outbound_delivery_jobs": 1,
+    "test_dimension": "Application idempotency, not XML validation. A queue/database implementation must be tested separately."
+  }
+}

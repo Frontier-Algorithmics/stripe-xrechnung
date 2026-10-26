@@ -1,0 +1,64 @@
+{
+  "package_version": "1.0",
+  "checked_on": "2026-09-06",
+  "standard": "XRechnung 3.0.2, standard CIUS, UBL 2.1",
+  "validator": {
+    "version": "1.6.3",
+    "url": "https://github.com/itplr-kosit/validator/releases/download/v1.6.3/validator-1.6.3-standalone.jar",
+    "sha256": "799e64befca97d4080e03608c80b85dd5a5ecc5f4ae4f35d1116ec2855b9a7c9"
+  },
+  "configuration": {
+    "release": "v2026-08-31",
+    "scenario_metadata_date": "2026-09-02",
+    "url": "https://github.com/itplr-kosit/validator-configuration-xrechnung/releases/download/v2026-08-31/xrechnung-3.0.2-validator-configuration-2026-08-31.zip",
+    "sha256": "2530cd107c414511c5d0462ec10f886910395abfca820db82e83d70bf01221a8"
+  },
+  "scenario": "EN16931 XRechnung (UBL Invoice)",
+  "report_copy_note": "Original machine-specific input paths replaced with package-relative paths. Validation messages, outcomes and invoice bytes unchanged.",
+  "validated_files": {
+    "examples/01-saas-standard-ubl.xml": "7ec26383e8eb22446889e758829ce829518ec4f27b5b6d5623688908f3857335",
+    "failures/02-missing-buyer-endpoint.xml": "df86fadcfea666e3b717b44bda42eb913224362648190e1064ccc5611093737f",
+    "failures/03-wrong-tax-inclusive-total.xml": "062ed5bd29aa99b8424e8e2209611ea610ed82832354c61687ed82f2abd3c1a8"
+  },
+  "results": [
+    {
+      "report": "01-saas-standard-ubl-report.xml",
+      "acceptance": "ACCEPTABLE",
+      "messages": []
+    },
+    {
+      "report": "02-missing-buyer-endpoint-report.xml",
+      "acceptance": "REJECT",
+      "messages": [
+        {
+          "level": "error",
+          "code": "PEPPOL-EN16931-R010",
+          "message": "[PEPPOL-EN16931-R010]-Buyer electronic address MUST be provided"
+        }
+      ]
+    },
+    {
+      "report": "03-wrong-tax-inclusive-total-report.xml",
+      "acceptance": "REJECT",
+      "messages": [
+        {
+          "level": "error",
+          "code": "BR-CO-15",
+          "message": "[BR-CO-15]-Invoice total amount with VAT (BT-112) = Invoice total amount without VAT (BT-109) + Invoice total VAT amount (BT-110)."
+        },
+        {
+          "level": "error",
+          "code": "BR-CO-16",
+          "message": "[BR-CO-16]-Amount due for payment (BT-115) = Invoice total amount with VAT (BT-112) -Paid amount (BT-113) +Rounding amount (BT-114)."
+        }
+      ]
+    }
+  ],
+  "not_tested": [
+    "live Stripe API contract",
+    "real identities or tax treatment",
+    "invoice delivery",
+    "application-level event idempotency",
+    "production integration"
+  ]
+}

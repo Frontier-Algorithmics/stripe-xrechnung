@@ -1,0 +1,114 @@
+{
+  "_fixture": {
+    "synthetic": true,
+    "purpose": "Selected Stripe-like source fields plus explicit integration enrichment, not an API response or production converter input.",
+    "stripe_api_version": "Not pinned to an account; documentation fields reviewed on 2026-09-06. Pin and contract-test your own version."
+  },
+  "stripe_invoice_excerpt": {
+    "id": "in_TEST_EXAMPLE_0001",
+    "object": "invoice",
+    "livemode": false,
+    "status": "open",
+    "number": "TEST-2026-0001",
+    "currency": "eur",
+    "collection_method": "send_invoice",
+    "customer_name": "Beispiel Kunde GmbH — TESTDATEN",
+    "customer_email": "rechnung@buyer.example",
+    "customer_address": {
+      "line1": "Beispielweg 2",
+      "city": "Hamburg",
+      "postal_code": "20095",
+      "country": "DE"
+    },
+    "customer_tax_ids": [],
+    "subtotal_excluding_tax": 10000,
+    "total_excluding_tax": 10000,
+    "total": 11900,
+    "amount_paid": 0,
+    "amount_remaining": 11900,
+    "lines": {
+      "object": "list",
+      "has_more": false,
+      "data": [
+        {
+          "id": "il_TEST_0001",
+          "object": "line_item",
+          "description": "SaaS-Zugang September 2026 — Testposition",
+          "currency": "eur",
+          "amount": 10000,
+          "quantity": 2,
+          "quantity_decimal": "2",
+          "pricing": {
+            "type": "price_details",
+            "unit_amount_decimal": "5000",
+            "price_details": {
+              "price": "price_TEST_50EUR",
+              "product": "prod_TEST_SAAS"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "integration_enrichment_NOT_Stripe_fields": {
+    "issue_date": "2026-09-06",
+    "due_date": "2026-09-20",
+    "service_period_inclusive": {
+      "start": "2026-09-01",
+      "end": "2026-09-30"
+    },
+    "buyer_reference": "DEMO-TEAM-42",
+    "seller_legal_name": "Beispiel SaaS GmbH — TESTDATEN",
+    "seller_address": {
+      "line1": "Testweg 1",
+      "city": "Berlin",
+      "postal_code": "10115",
+      "country": "DE"
+    },
+    "seller_vat_id_TEST_ONLY": "DE000000000",
+    "seller_contact": {
+      "name": "Testkontakt — nicht erreichbar",
+      "phone": "+49 30 00000000",
+      "email": "billing@seller.example"
+    },
+    "seller_endpoint": {
+      "scheme": "EM",
+      "value": "billing@seller.example"
+    },
+    "buyer_endpoint": {
+      "scheme": "EM",
+      "value": "rechnung@buyer.example"
+    },
+    "payment_means_code": "58",
+    "iban_TEST_DUMMY_FROM_KOSIT": "DE79000000001234567890",
+    "unit_code": "C62",
+    "business_process": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+    "assumed_tax_breakdown": [
+      {
+        "category": "S",
+        "rate_percent": "19",
+        "taxable_minor": 10000,
+        "tax_minor": 1900
+      }
+    ],
+    "currency_minor_unit_exponent": 2
+  },
+  "expected_arithmetic": {
+    "net_eur": "100.00",
+    "tax_eur": "19.00",
+    "gross_eur": "119.00",
+    "payable_eur": "119.00",
+    "formula": "2 × 50.00 = 100.00; 100.00 × 19% = 19.00; 100.00 + 19.00 = 119.00"
+  },
+  "excluded_cases": [
+    "discounts",
+    "inclusive tax",
+    "reverse charge",
+    "credit notes",
+    "proration",
+    "multi-currency",
+    "account credits",
+    "Stripe Connect",
+    "partial payments"
+  ]
+}

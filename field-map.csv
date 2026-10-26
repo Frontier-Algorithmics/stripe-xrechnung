@@ -1,0 +1,35 @@
+﻿BT,Fachlicher Wert,Herkunft,UBL-Pfad (cbc/cac-Präfixe ausgelassen),Beispiel,Prüfung/Grenze
+BT-24,Spezifikationskennung,Konfiguration,CustomizationID,urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0,Nicht durch Versionsnummer 3.0.2 im URN ersetzen.
+BT-23,Geschäftsprozess,Vereinbarung mit Empfänger,ProfileID,urn:fdc:peppol.eu:2017:poacc:billing:01:1.0,Beispielprofil; vor Einsatz Empfängeranforderung klären.
+BT-1,Rechnungsnummer,Stripe: number,ID,TEST-2026-0001,Gleiche Dokumentidentität beibehalten; id zur Korrelation.
+BT-2,Ausstellungsdatum,Stripe: effective_at / finalized_at; Rechnungspolitik,IssueDate,2026-09-06,"Im JSON ergänzt; Zeitzone festlegen, nicht blind created."
+BT-9,Fälligkeit,Stripe: due_date / vereinbarte Bedingungen,DueDate,2026-09-20,Zahlungsart und Fälligkeitsregeln berücksichtigen.
+BT-5,Währung,Stripe: currency,DocumentCurrencyCode,EUR,ISO-Code in Großbuchstaben.
+BT-10,Käuferreferenz,Empfänger-Stammdaten,BuyerReference,DEMO-TEAM-42,Keine Stripe-Kunden-ID und keine erfundene Leitweg-ID.
+BT-27,Verkäufername,Rechtliche Stammdaten,AccountingSupplierParty/Party/PartyLegalEntity/RegistrationName,Beispiel SaaS GmbH — TESTDATEN,Öffentlicher Stripe-Kontoname allein muss nicht genügen.
+BT-31,Verkäufer-USt-IdNr.,Rechtliche Stammdaten / aufgelöste account_tax_ids,AccountingSupplierParty/Party/PartyTaxScheme/CompanyID,DE000000000,"Nur Testwert; Wert und Typ prüfen, keine Objekt-ID kopieren."
+BT-35/37/38/40,Verkäuferanschrift,Rechtliche Stammdaten,AccountingSupplierParty/Party/PostalAddress,Testweg 1; Berlin; 10115; DE,"StreetName, CityName, PostalZone, Country/IdentificationCode."
+BT-34,Elektronischer Verkäufer-Endpunkt,Rechnungs-Endpunktkonfiguration,AccountingSupplierParty/Party/EndpointID,billing@seller.example; schemeID=EM,Schema und Adresse bilden ein Paar.
+BT-41/42/43,Verkäuferkontakt,Kontakt-Stammdaten,AccountingSupplierParty/Party/Contact,Name; Telephone; ElectronicMail,Im Beispiel vollständig synthetisch.
+BT-44,Käufername,Stripe: customer_name,AccountingCustomerParty/Party/PartyLegalEntity/RegistrationName,Beispiel Kunde GmbH — TESTDATEN,Finalisierten Rechnungssnapshot verwenden.
+BT-50/52/53/55,Käuferanschrift,Stripe: customer_address,AccountingCustomerParty/Party/PostalAddress,Beispielweg 2; Hamburg; 20095; DE,"line1, city, postal_code, country zuordnen."
+BT-48,Käufer-USt-IdNr.,Stripe: customer_tax_ids; je Steuerfall,AccountingCustomerParty/Party/PartyTaxScheme/CompanyID,Im Beispiel nicht gesetzt,Passenden Typ auswählen; nicht jeden tax_id-Typ als VAT ausgeben.
+BT-49,Elektronischer Käufer-Endpunkt,Bestätigte Empfänger-Stammdaten,AccountingCustomerParty/Party/EndpointID,rechnung@buyer.example; schemeID=EM,customer_email nicht ungeprüft als Endpunkt einsetzen.
+BT-81,Zahlungsmittelcode,Vereinbarte Zahlungsart,PaymentMeans/PaymentMeansCode,58,SEPA-Überweisung im Beispiel; kein Stripe-Ablaufwert.
+BT-84,Zahlungskonto,Verkäufer-Zahlungsdaten,PaymentMeans/PayeeFinancialAccount/ID,DE79000000001234567890,KoSIT-Testdummy; kein erreichbares Zahlungskonto.
+BT-126,Positionskennung,Integrationszuordnung; Stripe-Line-ID als Korrelation,InvoiceLine/ID,1,Innerhalb des Dokuments eindeutig.
+BT-129,Menge,Stripe: quantity_decimal / versionsabhängige Menge,InvoiceLine/InvoicedQuantity,2,Dezimalpräzision erhalten.
+BT-130,Mengeneinheit,Produkt-/Messgrößenkonfiguration,InvoiceLine/InvoicedQuantity/@unitCode,C62,Einheit zum tatsächlich berechneten Gegenstand wählen.
+BT-153,Positionsname,Stripe-Line-Beschreibung + Produktkontext,InvoiceLine/Item/Name,SaaS-Zugang September 2026 — Testposition,Verständlicher kurzer Name; weitere Beschreibung separat.
+BT-146,Nettopreis,Stripe: pricing.unit_amount_decimal + Normalisierung,InvoiceLine/Price/PriceAmount,50.00,Hier exklusiver Preis ohne Rabatt; kein allgemeiner Umrechner.
+BT-149/150,Preisbasismenge/-einheit,Preismodell,InvoiceLine/Price/BaseQuantity,1; unitCode=C62,Zu InvoicedQuantity und Preis passend.
+BT-131,Positionsnetto,Normalisierte Positionsberechnung,InvoiceLine/LineExtensionAmount,100.00,Menge × Nettopreis nur im einfachen Testfall.
+BT-134/135,Leistungszeitraum,Stripe-Line: period + Datumskonvention,InvoiceLine/InvoicePeriod/StartDate; EndDate,2026-09-01; 2026-09-30,Im Test bereits inklusive Kalenderdaten.
+BT-151/152,Steuerkategorie/-satz,Geprüfte Steuerentscheidung,InvoiceLine/Item/ClassifiedTaxCategory,S; 19,Testannahme; keinen Steuerfall allein aus Prozentsatz ableiten.
+BT-116/117/118/119,Steueraufschlüsselung,Normalisierte Steuersummen je Kategorie/Satz,TaxTotal/TaxSubtotal,100.00; 19.00; S; 19,"TaxableAmount, TaxAmount, TaxCategory/ID und Percent."
+BT-106,Summe Positionsnetto,Summe normalisierter Positionen,LegalMonetaryTotal/LineExtensionAmount,100.00,Vollständige Positionsliste vorausgesetzt.
+BT-109,Rechnungsnetto,Normalisierte Gesamtsummen; Abgleich total_excluding_tax,LegalMonetaryTotal/TaxExclusiveAmount,100.00,Dokumentrabatte und Zuschläge separat berücksichtigen.
+BT-110,Steuersumme,Summe Steueraufschlüsselung,TaxTotal/TaxAmount,19.00,Währung explizit.
+BT-112,Rechnungsbrutto,Netto + Steuer; Abgleich Stripe total,LegalMonetaryTotal/TaxInclusiveAmount,119.00,Nicht mit offener Forderung verwechseln.
+BT-113/114,Gezahlt/Rundung,Normalisierte Zahlungs- und Rundungsdaten,LegalMonetaryTotal/PrepaidAmount; PayableRoundingAmount,Im Beispiel nicht gesetzt / 0,00 EUR,Kundenguthaben und Teilzahlungen benötigen eigenen Vertrag.
+BT-115,Zahlbetrag,Brutto − gezahlt + Rundung; fachlicher Abgleich,LegalMonetaryTotal/PayableAmount,119.00,amount_remaining nicht ohne Abgleich universell übernehmen.
